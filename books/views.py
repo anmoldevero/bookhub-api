@@ -19,6 +19,9 @@ class BookViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Book.objects.annotate(likes_count=Count("likes"))
     
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+    
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['author', 'title']
     ordering_fields = ['created_at']

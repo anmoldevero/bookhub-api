@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import viewsets
+from rest_framework import mixins, viewsets
 from django.contrib.auth.models import User
 from .serializers import UserSerialzer,ChangePassword
 from rest_framework.permissions import AllowAny,IsAuthenticated
@@ -11,7 +11,7 @@ from django.contrib.auth.password_validation import validate_password
 
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSerialzer

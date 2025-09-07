@@ -5,12 +5,13 @@ from . models import Book, Like, Comment
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = '__all__'
+        fields = ['title', 'author', 'description', 'pdf_content' ]
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    model = Comment
-    fields = '__all__'
+    class Meta:
+       model = Comment
+       fields = ['comment']
 
 
 
