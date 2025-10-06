@@ -39,10 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'books', # Added manually
-    'users', # Added manually
-    'rest_framework',# Added manually
-    'rest_framework_simplejwt.token_blacklist', # Added manually
+    # Added manually
+    'books', 
+    'users', 
+    'rest_framework',
+    'rest_framework_simplejwt.token_blacklist', 
 ]
 
 MIDDLEWARE = [
@@ -142,7 +143,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':['rest_framework.permissions.IsAuthenticated'],
     
     'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE':10
+    'PAGE_SIZE':10,
+
+    'DEFAULT_THROTTLE_CLASSES':['rest_framework.throttling.UserRateThrottle','rest_framework.throttling.AnonRateThrottle'],
+
+    'DEFAULT_THROTTLE_RATES':{'user':'100/day', 'anon':'5/hour'}
 }
 
 
@@ -163,3 +168,12 @@ SIMPLE_JWT = {
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR /'media'
+
+
+
+
+
+
+
+
+
