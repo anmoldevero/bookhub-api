@@ -16,7 +16,6 @@ class Book(models.Model):
         return self.title
 
 
-
 # Like model
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -28,7 +27,6 @@ class Like(models.Model):
     def __str__(self):
         return f"{self.user.username} Likes {self.book.title}"
     
-
 
 # Comment model
 class Comment(models.Model):

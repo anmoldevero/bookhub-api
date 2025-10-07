@@ -3,12 +3,12 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework import mixins, viewsets
 from django.contrib.auth.models import User
-from .serializers import UserSerialzer,ChangePassword
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.contrib.auth.password_validation import validate_password
 
+from .serializers import UserSerialzer,ChangePassword
 
 
 class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -16,13 +16,11 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerialzer
 
-    
     @action(detail=False, methods=['delete'], permission_classes=[IsAuthenticated])
     
     def delete_account(self, request):
         request.user.delete()
         return Response({"message": "Account deleted successfully"}, status=204)
-
 
 
 class PasswordViewSet(viewsets.ViewSet):

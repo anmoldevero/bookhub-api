@@ -2,13 +2,13 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework.response import Response
-from .models import Book, Like, Comment
-from.serializers import BookSerializer,CommentSerializer
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django.db.models import Count
 
+from .models import Book, Like, Comment
+from .serializers import BookSerializer,CommentSerializer
 
 
 class BookViewSet(viewsets.ModelViewSet):
@@ -43,7 +43,6 @@ class BookViewSet(viewsets.ModelViewSet):
         return Response({"total_likes": likes.count()})
     
 
-
     @action(detail=True, methods=['post'])
     def comment(self, request, pk):
         book = self.get_object()
@@ -51,6 +50,7 @@ class BookViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         comment = serializer.save(user=request.user, book=book)
         return Response({"detail": "Comment added", "comment": CommentSerializer(comment).data})
+    
     
     @action(detail=True, methods=['get'])
     def comments(self, request, pk):
